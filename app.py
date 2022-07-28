@@ -8,15 +8,21 @@
 import uvicorn
 from fastapi import FastAPI, File, Request
 from starlette.responses import FileResponse,Response
+import os
+import time
 
 app = FastAPI()
 @app.get("/",tags=['Test'])
 def Hello():
     return{"status":200}
 
-@app.post("/name/",tags=['AML新聞查詢'])
+@app.post("/name/",tags=['AML新聞查詢'], response_description='xlsx')
 async def ReturnExcel(Name:str):
     print(Name)
+    try:
+        os.remove(Name+'.xlsx')
+    except OSError as e:
+        print(e)
     return FileResponse(Name+'.xlsx', filename=Name+'.xlsx')
 
 if __name__ == '__main__':
