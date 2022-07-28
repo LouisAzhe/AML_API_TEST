@@ -19,10 +19,9 @@ def Hello():
 @app.post("/name/",tags=['AML新聞查詢'], response_description='xlsx')
 async def ReturnExcel(Name:str):
     print(Name)
-    try:
-        os.remove(Name+'.xlsx')
-    except OSError as e:
-        print(e)
+
+
+
     return FileResponse(Name+'.xlsx', filename=Name+'.xlsx')
 
 if __name__ == '__main__':
